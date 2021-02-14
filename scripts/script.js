@@ -15,8 +15,6 @@ window.addEventListener('DOMContentLoaded', () => {
       .then(data => myStorage.setItem('products', JSON.stringify(data)));
   }
 
-  while (myStorage.getItem('products') === null) {}
-
   let fromSt = false;
   if (myStorage.getItem('count_array') === null) {
     myStorage.setItem('count_array', JSON.stringify([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
