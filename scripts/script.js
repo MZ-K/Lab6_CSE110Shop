@@ -26,6 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
     .then(response => response.json())
     .then(data => localStorage.setItem('products', JSON.stringify(data)));
 
+    console.log(localStorage.getItem('products'));
   //}
   
 });
