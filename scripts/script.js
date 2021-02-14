@@ -9,12 +9,13 @@ window.addEventListener('DOMContentLoaded', () => {
   let myStorage = window.localStorage;
 
   if (myStorage.getItem('products') === null) {
+
     fetch('https://fakestoreapi.com/products')
       .then(response => response.json())
       .then(data => myStorage.setItem('products', JSON.stringify(data)));
-
-    
   }
+
+  while (myStorage.getItem('products') === null) {}
 
   let fromSt = false;
   if (myStorage.getItem('count_array') === null) {
