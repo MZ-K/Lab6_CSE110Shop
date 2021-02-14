@@ -6,27 +6,45 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // let fetchedResponse;
   // let url = 'https://fakestoreapi.com/products';
-  // let myStorage = window.localStorage;
+  let myStorage = window.localStorage;
 
-  //if (myStorage.getItem('apiResponse') === null) {
-    // fetch(url)
-    //   .then(function (response) {
-    //     fetchedResponse = response.json();
-    //     myStorage.setItem('apiResponse', fetchedResponse);
-    //   })
-    //   .catch(function () {
+  if (myStorage.getItem('products') === null) {
+    fetch('https://fakestoreapi.com/products')
+      .then(response => response.json())
+      .then(data => myStorage.setItem('products', JSON.stringify(data)));
 
-    //   });
+    myStorage.setItem('count_array', JSON.stringify([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]));
+  }
 
-    // fetch('https://fakestoreapi.com/products')
-    //   .then(response => response.json())
-    //   .then(data => console.log(data));
+  let temp = JSON.parse(myStorage.getItem('products'));
+  let arr = JSON.parse(myStorage.getItem('count_array'));
 
-  fetch('https://fakestoreapi.com/products')
-    .then(response => response.json())
-    .then(data => localStorage.setItem('products', JSON.stringify(data)));
+  let pl = document.getElementById('product-list');
 
-    console.log(localStorage.getItem('products'));
-  //}
+  let count = document.getElementById('cart-count');
+
   
+
+  for (let i = 0; i < temp.length; ++i) {
+    let obj = temp[i];
+    let a = new ProductItem(obj.image, obj.title, obj.price);
+    pl.appendChild(a);
+    let temp2 = a.shadowRoot.querySelector("li").querySelector("button"); 
+    temp2.addEventListener("click", function() {
+      if (temp2.textContent == "Add to Cart") {
+        temp2.textContent = "Remove from Cart";
+        arr[i] = 1;  
+        count.textContent = parseInt(count.textContent) + 1;
+      } else {
+        temp2.textContent = "Add to Cart";
+        arr[i] = 0;
+        count.textContent = parseInt(count.textContent) - 1;
+      }
+    });
+  }
+
+
+
+
+
 });

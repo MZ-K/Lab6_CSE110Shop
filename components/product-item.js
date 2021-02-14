@@ -2,38 +2,33 @@
 
 class ProductItem extends HTMLElement {
   // TODO
-  constructor() {
+  constructor(img_src, title, price) {
     super();
 
     // Create a shadow root
-    let shadow = this.attachShadow({ mode: 'open' });
+    const shadow = this.attachShadow({ mode: 'open' });
 
-    // Create spans
-    let wrapper = document.createElement('span');
-    wrapper.setAttribute('class', 'wrapper');
-    let icon = document.createElement('span');
-    icon.setAttribute('class', 'icon');
-    icon.setAttribute('tabindex', 0);
-    let info = document.createElement('span');
-    info.setAttribute('class', 'info');
-
-    // Take attribute content and put it inside the info span
-    let text = this.getAttribute('data-text');
-    info.textContent = text;
-
-    // Insert icon
-    let imgUrl;
-    if (this.hasAttribute('img')) {
-      imgUrl = this.getAttribute('img');
-    } else {
-      imgUrl = 'img/default.png';
-    }
+    const wrapper = document.createElement('li');
+    wrapper.setAttribute('class', 'product');
+    
     let img = document.createElement('img');
-    img.src = imgUrl;
-    icon.appendChild(img);
+    img.src = img_src;
+    wrapper.appendChild(img);
 
+    let p1 = document.createElement('p')
+    p1.setAttribute('class', 'title')
+    p1.textContent = title;
+    wrapper.appendChild(p1);
 
+    let p2 = document.createElement('p')
+    p1.setAttribute('class', 'price')
+    p1.textContent = price;
+    wrapper.appendChild(p2);
 
+    let btn = document.createElement('button')
+    p1.setAttribute('onclick', "alert('Added to cart!')");
+    p1.textContent = "Add to Cart";
+    wrapper.appendChild(btn);
 
     // Create some CSS to apply to the shadow dom
     let style = document.createElement('style');
@@ -103,6 +98,7 @@ class ProductItem extends HTMLElement {
     }`;
 
     // attach the created elements to the shadow dom
+    shadow.appendChild(style, wrapper)
 
   }
 }
