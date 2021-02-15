@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   if (localStorage.getItem('products') === null) {
-
+    // fetch('http://localhost:3000/products')
     fetch('https://fakestoreapi.com/products')
       .then(response => response.json())
       .then(data => {
